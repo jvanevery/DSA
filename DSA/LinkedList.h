@@ -37,9 +37,8 @@ namespace LL {
 		T peekAtHead();
 		T peekAtTail();
 		bool contains(T data);
+		size_t sizeOf();
 		void print();
-		//T& remove(int index);
-		//addLast(T& elem);
 	};
 
 	//IMPLEMENTATION
@@ -155,6 +154,12 @@ namespace LL {
 			ptr_temp = ptr_temp->ptr_next;
 		}
 		return isContained;
+	}
+
+	//Return size of list
+	template <class T>
+	size_t SLList<T>::sizeOf() {
+		return size;
 	}
 
 	//Print text representation of the SLL.
