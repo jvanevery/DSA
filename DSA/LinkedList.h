@@ -7,7 +7,7 @@ from O(n) to O(1).
 **/
 #pragma once
 
-namespace LL {
+namespace JVLL {
 
 	//Singly linked list node
 	template <class T>
