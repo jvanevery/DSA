@@ -2,16 +2,17 @@
 //Stack is implemented with a singly linked list
 //Queue is implemented with a singly linked list 
 //May add dynamic array implementations
+//Took an encapsulation approach by using a LinkedList member and defining the allowed operations
 //This header is dependent on the LinkedList.h template classes
 
-//TODO:: Consider using inheritance to simplify
+//TODO::You just slap an interface on a linked list instead of going the encapsulation route.
 #pragma once
 
 #include "LinkedList.h"
 
 namespace JVSQD {
 
-	//Stack will only use a select number of operations from SLList. The class pretty mich serves
+	//Stack will only use a select number of operations from SLList. The class pretty much serves
 	//as a wrapper to abstract the operations in linked list
 	template <class T>
 	class Stack {
@@ -21,6 +22,7 @@ namespace JVSQD {
 
 	public:
 		Stack();
+		~Stack();
 		void push(T data);
 		T peek();
 		void pop();
@@ -39,6 +41,7 @@ namespace JVSQD {
 
 	public:
 		Queue();
+		~Queue();
 		void enqueue(T data);
 		T peek();
 		void dequeue();
@@ -52,7 +55,12 @@ namespace JVSQD {
 	//Stack functions
 	template <class T>
 	Stack<T>::Stack() {
-		list = new SLList<T>();
+		list = new JVLL::SLList<T>();
+	}
+
+	template <class T>
+	Stack<T>::~Stack() {
+		delete list;
 	}
 
 	template <class T>
@@ -84,7 +92,12 @@ namespace JVSQD {
 	//Queue Functions
 	template <class T>
 	Queue<T>::Queue() {
-		list = new SLList<T>();
+		list = new JVLL::SLList<T>();
+	}
+
+	template <class T>
+	Queue<T>::~Queue() {
+		delete list;
 	}
 
 	template <class T>

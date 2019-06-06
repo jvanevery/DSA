@@ -5,6 +5,9 @@ become more straightforward to perform with a doubly-linked list. Namely, deleti
 of the list no longer requries traversal in a DLL, which reduces the complexity of the operation
 from O(n) to O(1).
 **/
+
+//TODO::Use Inheritance to deal with the copy paste code between DLL and SLL 
+
 #pragma once
 
 namespace JVLL {
@@ -18,7 +21,7 @@ namespace JVLL {
 		SLLNode* ptr_next;
 
 	public:
-		SLLNode();
+		SLLNode(T newData);
 		
 		//Giving SLList access to SLLNode as an alternative to nesting the classes
 		template <class U>
@@ -36,6 +39,7 @@ namespace JVLL {
 
 	public:
 		SLList();
+		~SLList();
 		void insertAtHead(T newData);
 		void insertAtTail(T newData);
 		void deleteAtHead();
@@ -58,7 +62,7 @@ namespace JVLL {
 
 
 	public:
-		DLLNode();
+		DLLNode(T newData);
 
 		//Giving DLList access to DLLNode as an alternative to nesting the classes
 		template <class U>
@@ -76,6 +80,7 @@ namespace JVLL {
 
 	public:
 		DLList();
+		~DLList();
 		void insertAtHead(T newData);
 		void insertAtTail(T newData);
 		void deleteAtHead();
@@ -90,8 +95,9 @@ namespace JVLL {
 	//IMPLEMENTATION
 
 	template<class T>
-	SLLNode<T>::SLLNode() {
+	SLLNode<T>::SLLNode(T newData) {
 		ptr_next = nullptr;
+		data = newData;
 	}
 
 	template <class T>
@@ -101,11 +107,17 @@ namespace JVLL {
 		size = 0;
 	}
 
+	template <class T>
+	SLList<T>::~SLList() {
+		for (size_t i = 0; i < this->sizeOf(); ++i) {
+			this->deleteAtHead();
+		}
+	}
+
 	//Insert node at the head of the list
 	template <class T>
 	void SLList<T>::insertAtHead(T newData) {
-		SLLNode<T>* ptr_newNode = new SLLNode<T>();
-		ptr_newNode->data = newData;
+		SLLNode<T>* ptr_newNode = new SLLNode<T>(newData);
 		if (ptr_head != nullptr) {
 			ptr_newNode->ptr_next = ptr_head;
 			ptr_head = ptr_newNode;
@@ -120,8 +132,7 @@ namespace JVLL {
 	//Insert node at the tail of the list
 	template <class T>
 	void SLList<T>::insertAtTail(T newData) {
-		SLLNode<T>* ptr_newNode = new SLLNode<T>();
-		ptr_newNode->data = newData;
+		SLLNode<T>* ptr_newNode = new SLLNode<T>(newData);
 		ptr_newNode->ptr_next = nullptr;
 		if (ptr_tail != nullptr) {
 			ptr_tail->ptr_next = ptr_newNode;
@@ -227,9 +238,10 @@ namespace JVLL {
 	}
 
 	template<class T>
-	DLLNode<T>::DLLNode() {
+	DLLNode<T>::DLLNode(T newData) {
 		ptr_next = nullptr;
 		ptr_prev = nullptr;
+		data = newData;
 	}
 
 	template <class T>
@@ -239,11 +251,17 @@ namespace JVLL {
 		size = 0;
 	}
 
+	template <class T>
+	DLList<T>::~DLList() {
+		for (size_t i = 0; i < this->sizeOf(); ++i) {
+			this->deleteAtHead();
+		}
+	}
+
 	//Insert node at the head of the list.
 	template <class T>
 	void DLList<T>::insertAtHead(T newData) {
-		DLLNode<T>* ptr_newNode = new DLLNode<T>();
-		ptr_newNode->data = newData;
+		DLLNode<T>* ptr_newNode = new DLLNode<T>(newData);
 		ptr_newNode->ptr_prev = nullptr; 
 		if (ptr_head != nullptr) {
 			ptr_head->ptr_prev = ptr_newNode;
@@ -260,8 +278,7 @@ namespace JVLL {
 	//Insert node at the tail of the list
 	template <class T>
 	void DLList<T>::insertAtTail(T newData) {
-		DLLNode<T>* ptr_newNode = new DLLNode<T>();
-		ptr_newNode->data = newData;
+		DLLNode<T>* ptr_newNode = new DLLNode<T>(newData);
 		ptr_newNode->ptr_next = nullptr;
 		if (ptr_tail != nullptr) {
 			ptr_tail->ptr_next = ptr_newNode;
